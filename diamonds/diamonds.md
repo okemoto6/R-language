@@ -162,7 +162,7 @@ kable(diamonds_cut)
 | Good      |         4906 |   3928.864 |       3050.5 |  0.8491847 |         0.82 | 0.4540544 |
 | Fair      |         1610 |   4358.758 |       3282.0 |  1.0461366 |         1.00 | 0.5164043 |
 
-![](Plots/Rplot_1.png)<!-- -->
+![](plots/Rplot_1.png)<!-- -->
 
 #### Dataset summary by color
 
@@ -195,7 +195,7 @@ kable(diamonds_color)
 | I     |         5422 |   5091.875 |       3730.0 |  1.0269273 |         1.00 | 0.5791727 |
 | J     |         2808 |   5323.818 |       4234.0 |  1.1621368 |         1.11 | 0.5958012 |
 
-![](diamonds_files/figure-gfm/plot_2-1.png)<!-- -->
+![](plots/Rplot_2.png)<!-- -->
 
 #### Dataset summary by clarity
 
@@ -229,7 +229,7 @@ kable(diamonds_clarity)
 | IF      |         1790 |   2864.839 |         1080 |  0.5051229 |         0.35 | 0.3134331 |
 | I1      |          741 |   3924.169 |         3344 |  1.2838462 |         1.12 | 0.6324360 |
 
-![](diamonds_files/figure-gfm/plot_3-1.png)<!-- -->
+![](plots/Rplot_3.png)<!-- -->
 
 ## Calculations
 
@@ -280,7 +280,7 @@ ggplot(diamonds, aes(x = carat, y = price, color = carat)) +
   labs(x = 'Weight [ct]', y = 'Price [$]', title = 'Weight of diamond', subtitle = 'by its price', caption = 'data source: diamonds dataset (ggplot2 library)')
 ```
 
-![](diamonds_files/figure-gfm/plot_4-1.png)<!-- -->
+![](plots/Rplot_4.png)<!-- -->
 
 #### Weight - price correlation with trend line:
 
@@ -293,4 +293,4 @@ ggplot(diamonds, aes(x = carat, y = price)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-![](diamonds_files/figure-gfm/plot_5-1.png)<!-- -->
+![](plots/Rplot_5.png)<!-- -->
