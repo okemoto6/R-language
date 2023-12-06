@@ -3,9 +3,7 @@ diamonds
 okemoto
 2023-12-04
 
-# Analysis of diamonds dataset (part of ggplot2 library)
-
-## containing the prices and other attributes of almost 54,000 diamonds
+## Analysis of diamonds dataset (part of ggplot2 library) containing the prices and other attributes of almost 54,000 diamonds
 
 #### Data overview
 
