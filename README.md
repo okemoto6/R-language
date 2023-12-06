@@ -4,5 +4,5 @@
 
 #### Contains data manipulations, calculations, plots and insight based on public datasets. 
 
-### - [Diamonds dataset analysis](https://github.com/okemoto6/R-language/edit/main/diamonds/diamonds.md)  
+### - [Diamonds dataset analysis](https://github.com/okemoto6/R-language/blob/main/diamonds/diamonds.md)
 
