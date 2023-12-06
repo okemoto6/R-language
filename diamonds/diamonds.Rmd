@@ -1,0 +1,163 @@
+---
+title: "diamonds"
+author: "okemoto"
+date: "2023-12-04"
+output: html_document
+---
+
+# Analysis of diamonds dataset (part of ggplot2 library)
+
+## containing the prices and other attributes of almost 54,000 diamonds
+
+#### Data overview
+
+```{r}
+library(ggplot2)
+
+head(diamonds)
+```
+
+```{r echo=FALSE}
+library(dplyr)
+
+glimpse(diamonds)
+```
+
+```{r}
+library(skimr)
+skim_without_charts(diamonds)
+```
+
+#### Min and max values for weight and price
+
+```{r}
+min_carat <- min(diamonds$carat)
+max_carat <- max(diamonds$carat)
+min_price <- min(diamonds$price)
+max_price <- max(diamonds$price)
+max_carat_index <- which.max(diamonds$carat)
+max_price_index <- which.max(diamonds$price)
+
+cat('Miminum diamond weight is', min_carat, 'ct, maximum diamond weight is', max_carat, 'ct \n\n')  
+cat('Minimum diamond price is $', min_price, ', maximum diamond price is $', max_price, '\n\n')  
+cat('The most expensive diamond cost $', max_price, 'and its weight was', diamonds$carat[max_price_index], '\n\n')  
+cat('The heaviest diamonds weight', max_carat, 'ct and its cost was', diamonds$price[max_carat_index])
+```
+
+#### Dataset summary by cut
+
+```{r}
+library(tidyverse)
+
+diamonds_cut <- diamonds %>% 
+  group_by(cut) %>% 
+  summarise(total_number = n(),
+            mean_price = mean(price),
+            median_price = median(price),
+            mean_carat = mean(carat),
+            median_carat = median(carat),
+            sd_carat = sd(carat)
+            ) %>% 
+  arrange(-total_number)
+
+library(knitr)
+
+kable(diamonds_cut)
+```
+
+```{r plot_1, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(diamonds, aes(x = cut, fill = cut)) +
+  geom_bar(show.legend = NULL) +
+  labs(x = 'Cut', y = 'Total number', title = 'Total number of diamonds', subtitle = 'by its cut', caption = 'data source: diamonds dataset (ggplot 2 library)')
+```
+
+#### Dataset summary by color
+
+```{r}
+library(tidyverse)
+
+diamonds_color <- diamonds %>% 
+  group_by(color) %>% 
+  summarise(total_number = n(),
+            mean_price = mean(price),
+            median_price = median(price),
+            mean_carat = mean(carat),
+            median_carat = median(carat),
+            sd_carat = sd(carat)
+            ) %>% 
+  arrange(-total_number)
+
+library(knitr)
+
+kable(diamonds_color)
+```
+
+```{r plot_2, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(diamonds, aes(x = color, fill = color)) +
+  geom_bar(show.legend = NULL) +
+  labs(x = 'Color', y = 'Total number', title = 'Total number of diamonds', subtitle = 'by its color', caption = 'data source: diamonds dataset (ggplot 2 library)')
+```
+
+#### Dataset summary by clarity
+
+```{r}
+library(tidyverse)
+
+diamonds_clarity <- diamonds %>% 
+  group_by(clarity) %>% 
+  summarise(total_number = n(),
+            mean_price = mean(price),
+            median_price = median(price),
+            mean_carat = mean(carat),
+            median_carat = median(carat),
+            sd_carat = sd(carat)
+            ) %>% 
+  arrange(-total_number)
+
+library(knitr)
+
+kable(diamonds_clarity)
+```
+
+```{r plot_3, echo=FALSE, message=FALSE, warning=FALSE}
+ggplot(diamonds, aes(x = clarity, fill = clarity)) +
+  geom_bar(show.legend = NULL) +
+  labs(x = 'Clarity', y = 'Total number', title = 'Total number of diamonds', subtitle = 'by its clarity', caption = 'data source: diamonds dataset (ggplot 2 library)')
+```
+
+## Calculations
+
+#### which of the variables - weight, quality of cut, color or clarity - has the strongest linear correlation with price?
+
+```{r echo=TRUE}
+price_carat_cor <- cor(diamonds$price, diamonds$carat)
+price_cut_cor <- cor(diamonds$price, as.numeric(diamonds$cut))
+price_color_cor <- cor(diamonds$price, as.numeric(diamonds$color))
+price_clarity_cor <- cor(diamonds$price, as.numeric(diamonds$clarity))
+
+cat('Value of correlation coefficient between price and weight:', price_carat_cor, '\n')
+cat('Value of correlation coefficient between price and cut:', price_cut_cor, '\n')
+cat('Value of correlation coefficient between price and color:', price_color_cor, '\n')
+cat('Value of correlation coefficient between price and clarity:', price_clarity_cor)
+
+```
+
+Two variables has positive linear correlation with price factor (weight of diamond and its color) and two variables has negative linear correlation (cut and clarity). While correlations between price and three of variables - cut, color and clarity are weak, a correlation between price and weight is strong: while price is growing the weight is growing/while weight is growing the price is growing (correlation doesn't show causation).
+
+#### Correlation between diamond weight and its price
+
+```{r plot_4, echo=TRUE, message=FALSE, warning=FALSE}
+ggplot(diamonds, aes(x = carat, y = price, color = carat)) +
+  geom_jitter() +
+  labs(x = 'Weight [ct]', y = 'Price [$]', title = 'Weight of diamond', subtitle = 'by its price', caption = 'data source: diamonds dataset (ggplot2 library)')
+
+```
+
+#### Weight - price correlation with trend line:
+
+```{r plot_5, echo=TRUE, message=TRUE, warning=FALSE}
+ggplot(diamonds, aes(x = carat, y = price)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(x = 'Weight [ct]', y = 'Price [$]', title = 'Weight of diamond', subtitle = 'by its price', caption = 'data source: diamonds dataset (ggplot2 library)')
+```
