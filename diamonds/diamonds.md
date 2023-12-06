@@ -162,7 +162,7 @@ kable(diamonds_cut)
 | Good      |         4906 |   3928.864 |       3050.5 |  0.8491847 |         0.82 | 0.4540544 |
 | Fair      |         1610 |   4358.758 |       3282.0 |  1.0461366 |         1.00 | 0.5164043 |
 
-![](diamonds_files/figure-gfm/plot_1-1.png)<!-- -->
+![](Plots/Rplot_1.png)<!-- -->
 
 #### Dataset summary by color
 
